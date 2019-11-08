@@ -1,0 +1,84 @@
+<html>
+
+<style>
+    .border {
+        border-style: solid;
+        border-color: black;
+    }
+</style>
+
+<body style="margin:0;padding:0">
+    <div id='bar'>
+        <input type="file" id="files" />
+        <input type="button" id="export" value="保存" />
+
+    </div>
+    <canvas id="MyCanvas" stroke='black'>
+    </canvas>
+    <textarea id='inputWindow' rows='10' style='position: absolute; left: 800;'></textarea>
+</body>
+<script src="./V_CanvStyle.js"></script>
+<script src="./V_CanvDraw.js"></script>
+<script src="./Graphic_Cal.js"></script>
+<script src="./M_Battery.js"></script>
+<script src="./Handler_text.js"></script>
+<script src='./M_Node.js'></script>
+<script src="./M_Layer.js"></script>
+<script src="./M_Link.js"></script>
+<script src="./M_Graphic.js"></script>
+<script src="./M_Overall.js"></script>
+<script src="./Board_event.js"></script>
+<script src="./V_Draw.js"></script>
+<script src="./C_EventHandler.js"></script>
+<script src="./C_Event.js"></script>
+<script src='./Controller.js'></script>
+<script src="./C_History.js"></script>
+<script src='./Save.js'></script>
+<script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.js"></script>
+<script src='./C_EventHandler_Key.js'></script>
+<script src="./M_Text2Diagram.js"></script>
+
+<script>
+    var body = document.querySelector('body');
+    var inputTextarea = document.getElementById('inputWindow');
+
+    // Initialization
+    var Canvas = document.getElementById('MyCanvas');
+    var magnetDistance = 100;
+    var Bar = document.getElementById('bar');
+
+
+    var CanvQualityEnhanceVector = 1.5;
+    var frame = document.getElementById('Canvframe');
+    Canvas.style.position = 'absolute';
+    Bar.style.position = 'absolute';
+    window.addEventListener("resize", resizeCanvas, false);
+    resizeCanvas(); //initial resize window event
+
+    function resizeCanvas() {
+        Canvas.style.width = (window.innerWidth + 'px');
+        Canvas.style.heigh = (window.innerHeight - 22 + 'px');
+        w = Canvas.width = window.innerWidth * CanvQualityEnhanceVector;
+        h = Canvas.height = (window.innerHeight - 22) * CanvQualityEnhanceVector;
+        Bar.style.top = (window.innerHeight - 22 + 'px')
+        inputTextarea.style.height = window.innerHeight;
+        inputTextarea.style.left = window.innerWidth / 3 * 2;
+        inputTextarea.style.width = window.innerWidth > 300 ? window.innerWidth / 3 : 300;
+    }
+
+    d = Canvas.getContext('2d');
+    // initial text, otherwise textmeasure will not correct
+
+    inputTextarea.value = 'level0\n-L1\n-L1\n--L2\n--L2_1\n\---L3\nL0\nL0';
+    
+    InitialAll();
+    Text2Diagram(inputTextarea.value);
+    inputTextarea.onkeyup = function () {
+        // InitialAll();
+        _ResourceManager.clear();
+        Text2Diagram(inputTextarea.value);
+    }
+
+</script>
+
+</html>
