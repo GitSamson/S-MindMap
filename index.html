@@ -52,10 +52,25 @@
     var frame = document.getElementById('Canvframe');
     Canvas.style.position = 'absolute';
     Bar.style.position = 'absolute';
-    window.addEventListener("resize", resizeCanvas, false);
+    window.addEventListener("resize", throttle(resizeCanvas,1000));
+
     resizeCanvas(); //initial resize window event
 
+    function throttle(fn, delay) {
+        let flag = true;
+        return(...arg)=>{
+            if(!flag){return false};
+            flag = false;
+            setTimeout(()=>{
+            fn.apply(this,arg);
+            flag = true;
+            },delay);
+        }
+    }
+    
+
     function resizeCanvas() {
+        console.log(1);
         Canvas.style.width = (window.innerWidth + 'px');
         Canvas.style.heigh = (window.innerHeight - 22 + 'px');
         w = Canvas.width = window.innerWidth * CanvQualityEnhanceVector;
@@ -64,13 +79,14 @@
         inputTextarea.style.height = window.innerHeight;
         inputTextarea.style.left = window.innerWidth / 3 * 2;
         inputTextarea.style.width = window.innerWidth > 300 ? window.innerWidth / 3 : 300;
+        return ()=>{return Board.redraw()}
     }
 
     d = Canvas.getContext('2d');
     // initial text, otherwise textmeasure will not correct
 
     inputTextarea.value = 'level0\n-L1\n-L1\n--L2\n--L2_1\n\---L3\nL0\nL0';
-    
+
     InitialAll();
     Text2Diagram(inputTextarea.value);
     inputTextarea.onkeyup = function () {
