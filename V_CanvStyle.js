@@ -43,10 +43,12 @@ Text: function() {
         d.fillStyle = 'black'
     },
 CtrlDot : function(){
-    d.strokeStyle = 'grey';
+    
     d.setLineDash([]);
-    d.fillStyle = '#0066FF';
+    d.fillStyle = 'white';
     d.fill();
+    d.strokeStyle = '#0066FF';
+    d.stroke();
 },
 Link : function(){
     d.strokeStyle = 'grey';

@@ -9,7 +9,10 @@ function Graphic(parent, type = ("rect" | 'c' | 'tri' | 'squ' | 'diamond'), x, y
             this.width = w_r;
             this.height = h;
             break;
-        case ('c'||'diamond'):
+        case ('c'):
+            this.radius = w_r;
+            break;
+            case('diamond'):
             this.radius = w_r;
             break;
         case 'squ':
@@ -29,10 +32,12 @@ Object.defineProperties(Graphic.prototype, {
             switch (this.type) {
                 case 'rect':
                     return this.y;
-                case( 'c' || 'diamond'):
-                    return this.y - this.radius;
+                case( 'c' ):
+                    return( this.y - this.radius);
+                case ('diamond'):
+                    return (this.y - this.radius);
                 case 'squ':
-                    return this.y - (this.edge);
+                    return (this.y - (this.edge));
 
             }
 
@@ -134,9 +139,9 @@ Graphic.prototype.draw = function () {
                 this.edge * 2);
             break;
         case 'diamond':
-            CanvDraw.pl.call(this,[this.left.x,this.y],[this.x,this.top],[this.right.x,this.y],[this.x,this.bot]);
-            console.log(this);
             
+            CanvDraw.pl([this.x-this.radius,this.y],[this.x,this.y-this.radius],[this.x+this.radius,this.y],[this.x,this.y+this.radius]);
+            CanvStyle.CtrlDot();
             break;
     }
 

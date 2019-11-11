@@ -16,14 +16,15 @@ var CanvDraw = {
         
         d.fillText(t, x , y  , width,height);
     },
-    pl : function (positionArray,closePath = true){
-        let _position = positionArray;
+    pl : function (...args){
+        let _position = [...args];
+        console.log(_position);
         d.beginPath();
         d.moveTo(_position[0][0], _position[0][1]);
         
-        for (let i = 1; i < (_position.length); i++) {
+        for (let i = 1; i < 4; i++) {
             d.lineTo(_position[i][0],_position[i][1]);
         }
-        closePath && d.closePath();
+        d.closePath();
     }
 }
