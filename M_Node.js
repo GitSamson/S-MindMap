@@ -35,17 +35,12 @@ Object.defineProperties(eNode.prototype, {
         get: function(){
             return this.type == 'left' ? this.parentElement.graphic.left.x : this.parentElement.graphic.right.x 
         }
-
     },
     y : {
         get: function (){
             return this.type == 'left' ? this.parentElement.graphic.left.y : this.parentElement.graphic.right.y;
         },
-
     }
-    
-    
-    
 })
 
 eNode.prototype.isOnNode = function (e) {
@@ -56,19 +51,10 @@ eNode.prototype.isOnNode = function (e) {
         return false;
     }
 }
-
-
-
-
 eNode.prototype.drawPointLine = function (mouse) {
     // when on dragging, draw pointed line to mouse Location
     d.beginPath();
     d.moveTo(this.position.x, this.position.y);
     d.lineTo(mouse.x, mouse.y);
     CanvStyle.LinkTo();
-
 }
-
-
-
-

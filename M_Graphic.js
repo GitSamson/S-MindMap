@@ -134,7 +134,9 @@ Graphic.prototype.draw = function () {
                 this.edge * 2);
             break;
         case 'diamond':
-            CanvDraw.pl([[this.left.x,this.y],[this.x,this.top],[this.right.x,this.y],[this.x,this.bot]]);
+            CanvDraw.pl.call(this,[this.left.x,this.y],[this.x,this.top],[this.right.x,this.y],[this.x,this.bot]);
+            console.log(this);
+            
             break;
     }
 

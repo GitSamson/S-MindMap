@@ -3,7 +3,7 @@ function eBattery(x, y, width = 50, height = 50, Text = null) {
     this.selected = false;
     this.Text = Text;
     this.node = { left: new eNode(this, 'left'), right: new eNode(this, 'right') };
-    this.graphic_C = new Graphic(this, 'diamond', this.right.x, this.y + this.height, 8);
+    this.graphic_C = new Graphic(this, 'diamond', this.rightBot.x, this.rightBot.y, 8);
     this.id ;
 }
 

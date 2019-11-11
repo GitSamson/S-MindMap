@@ -17,8 +17,8 @@ var CanvDraw = {
         d.fillText(t, x , y  , width,height);
     },
     pl : function (positionArray,closePath = true){
-        var _position = positionArray;
-        d.beginPath ();
+        let _position = positionArray;
+        d.beginPath();
         d.moveTo(_position[0][0], _position[0][1]);
         
         for (let i = 1; i < (_position.length); i++) {
