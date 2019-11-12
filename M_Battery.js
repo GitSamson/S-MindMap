@@ -10,21 +10,17 @@ function eBattery(x, y, width = 50, height = 50, Text = null) {
 //Content Draw funciton
 Object.defineProperties(eBattery.prototype, {
     x: {
-        get: function () { return this.graphic.x },
+        get: function () { return this.graphic.get().x },
         set: function (input) {
             this.graphic.x = input;
-            this.graphic_C.x = this.rightBot.x;
-            this.node.left.update();
-            this.node.right.update();
+            this.update();
         }
     },
     y: {
-        get: function () { return this.graphic.y },
+        get: function () { return this.graphic.get().y },
         set: function (input) {
             this.graphic.y = input;
-            this.graphic_C.y = this.rightBot.y
-            this.node.left.update();
-            this.node.right.update();
+            this.update();
         }
     },
     rightBot: {
@@ -35,49 +31,45 @@ Object.defineProperties(eBattery.prototype, {
     width: {
         set: function (input) {
             this.graphic.width = input > 50 ? input : 50;
-            this.graphic_C.x = this.rightBot.x;
-            this.node.left.update();
-            this.node.right.update();
-
+            this.update();
         },
         get: function () {
-            return this.graphic.width;
+            return this.graphic.get().width;
         }
     },
     height: {
         get: function () {
-            return this.graphic.height;
-
+            return this.graphic.get().height;
         },
         set: function (input) {
             this.graphic.height = input > 50 ? input : 50;
-            this.graphic_C.y = this.rightBot.y;
-            this.node.left.update();
-            this.node.right.update();
-
+            this.update();
         }
     },
     center: {
         get: function () {
             return (point(this.x + (this.width / 2), this.y + (this.height / 2)));
-        },
-        set: function (input) {
-            this.x = input.x - (this.width / 2);
-            this.y = input.y - (this.height / 2);
         }
     },
     left: {
         get: function () {
-            return this.graphic.left;
+            return this.graphic.get().left;
         }
     },
     right: {
         get: function () {
-            return this.graphic.right
+            return this.graphic.get().right
         }
     }
 });
-
+eBattery.prototype.update=function(){
+    this.node.left.x = this.graphic.left.x;
+    this.node.left.y = this.graphic.left.y;
+    this.node.right.x = this.graphic.right.x;
+    this.node.right.y = this.graphic.bot;
+    this.graphic_C.x= this.graphic.right.x;
+    this.graphic_C.y = this.graphic.bot;
+}
 eBattery.prototype.isOnControl = function (e) {
     if (this.node.left.isOnNode(e)) { return this.node.left; }
     if (this.node.right.isOnNode(e)) { return this.node.right; }

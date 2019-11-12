@@ -2,7 +2,14 @@
  * doEvent can do element level operation
  * create/remove/size/move/size/textEdit/textCancel/select/unselect
  */
+var scaleFactor = 1 ;
 var doEvent = {
+    scroll: function(e){
+        scaleFactor = scaleFactor * e.deltaY < 0 ? 0.9 : 1.1;
+        canv.scale(scaleFactor,scaleFactor);
+        
+        Board.redraw();
+    },
     create: function (input) {
         if (input instanceof eBattery == true) {
             _ResourceManager.push(input);

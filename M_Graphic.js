@@ -3,23 +3,21 @@ function Graphic(parent, type = ("rect" | 'c' | 'tri' | 'squ' | 'diamond'), x, y
     this.x = x;
     this.y = y;
     this.type = type;
-
     switch (type) {
         case 'rect':
             this.width = w_r;
             this.height = h;
             break;
-        case ('c'):
+        case 'c':
             this.radius = w_r;
             break;
-            case('diamond'):
+        case 'diamond':
             this.radius = w_r;
             break;
         case 'squ':
             this.edge = w_r;
             break;
     }
-
 }
 Object.defineProperties(Graphic.prototype, {
     position: {
@@ -32,15 +30,13 @@ Object.defineProperties(Graphic.prototype, {
             switch (this.type) {
                 case 'rect':
                     return this.y;
-                case( 'c' ):
-                    return( this.y - this.radius);
-                case ('diamond'):
+                case 'c':
+                    return (this.y - this.radius);
+                case 'diamond':
                     return (this.y - this.radius);
                 case 'squ':
-                    return (this.y - (this.edge));
-
+                    return (this.y - this.edge);
             }
-
         }
     },
     bot: {
@@ -92,14 +88,22 @@ Object.defineProperties(Graphic.prototype, {
                 this.y = y - this.height / 2;
                 return;
             }
-            if (this.type == 'c' || 'squ'|| 'diamond') {
+            if (this.type == 'c' || 'squ' || 'diamond') {
                 this.x = x;
                 this.y = y;
             }
         }
     },
-
 });
+
+Graphic.prototype.get = function () {
+    return {
+        x: this.x,
+        y: this.y,
+        width: this.width,
+        height: this.height
+    }
+}
 Graphic.prototype.isOn = function (e) {
     let ex = e.x;
     let ey = e.y;
@@ -114,12 +118,12 @@ Graphic.prototype.isOn = function (e) {
 
     if (this.type == 'squ') {
         return (
-            this.x - (this.edge) - senseArea < ex &&
-            this.x + (this.edge) - senseArea > ex &&
-            this.top - senseArea < ey &&
-            this.bot + senseArea > ey);
+            this.x - this.edge < ex &&
+            this.x + this.edge > ex &&
+            this.y + this.edge > ey &&
+            this.y - this.edge < ey);
     }
-    if (this.type == 'c'||'diamond') {
+    if (this.type == 'c' || 'diamond') {
         let result = Di_lessThan(this.center, e, this.radius + senseArea);
         return (result);
     }
@@ -139,8 +143,8 @@ Graphic.prototype.draw = function () {
                 this.edge * 2);
             break;
         case 'diamond':
-            
-            CanvDraw.pl([this.x-this.radius,this.y],[this.x,this.y-this.radius],[this.x+this.radius,this.y],[this.x,this.y+this.radius]);
+
+            CanvDraw.pl([this.x - this.radius, this.y], [this.x, this.y - this.radius], [this.x + this.radius, this.y], [this.x, this.y + this.radius]);
             CanvStyle.CtrlDot();
             break;
     }

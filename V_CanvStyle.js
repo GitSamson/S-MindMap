@@ -28,7 +28,6 @@ ElementSelected: function () {
 
 Node: function() {
     d.strokeStyle = 'grey';
-
         d.lineWidth = 2;
         d.setLineDash([]);
         d.fillStyle = "white";
@@ -37,7 +36,6 @@ Node: function() {
     },
 
 Text: function() {
-    
     d.setLineDash([]);
     d.font = _singleLetterHeight+'px Calibri';
         d.fillStyle = 'black'

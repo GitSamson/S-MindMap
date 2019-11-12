@@ -1,6 +1,7 @@
 
 function EventHandler(CANV) {
     var onElement;
+    document.addEventListener("wheel", doEvent.scroll, false);
     CANV.ondblclick = function (e) {
         dblclick(e);
     };

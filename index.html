@@ -13,8 +13,11 @@
         <input type="button" id="export" value="保存" />
 
     </div>
-    <canvas id="MyCanvas" stroke='black'>
-    </canvas>
+    <div>
+
+
+        <canvas id="MyCanvas" stroke='black'></canvas>
+    </div>
     <textarea id='inputWindow' rows='10' style='position: absolute; left: 800;'></textarea>
 </body>
 <script src="./V_CanvStyle.js"></script>
@@ -46,14 +49,11 @@
     var Canvas = document.getElementById('MyCanvas');
     var magnetDistance = 100;
     var Bar = document.getElementById('bar');
-
-
     var CanvQualityEnhanceVector = 1.5;
     var frame = document.getElementById('Canvframe');
     Canvas.style.position = 'absolute';
     Bar.style.position = 'absolute';
     window.addEventListener("resize", throttle(resizeCanvas,1000));
-
     resizeCanvas(); //initial resize window event
 
     function throttle(fn, delay) {
