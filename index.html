@@ -90,8 +90,8 @@
     InitialAll();
     Text2Diagram(inputTextarea.value);
     inputTextarea.onkeyup = function () {
-        // InitialAll();
         _ResourceManager.clear();
+        InitialAll();
         Text2Diagram(inputTextarea.value);
         
     }

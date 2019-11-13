@@ -5,9 +5,11 @@
 var scaleFactor = 1 ;
 var doEvent = {
     scroll: function(e){
-        scaleFactor = scaleFactor * e.deltaY < 0 ? 0.9 : 1.1;
-        canv.scale(scaleFactor,scaleFactor);
+        let _factor = e.deltaY < 0 ? 0.9 : 1.1;
+        scaleFactor = scaleFactor * _factor;
+        console.log(scaleFactor);
         
+        canv.scale(_factor, _factor);
         Board.redraw();
     },
     create: function (input) {
@@ -29,7 +31,6 @@ var doEvent = {
                 if (TempConnectElement) {
                     doEvent.create(new eLink(input, TempConnectElement));
                     _History.record();
-                    
                     Board.redraw();
                 }
                 else {
