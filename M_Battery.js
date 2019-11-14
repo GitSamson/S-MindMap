@@ -4,6 +4,7 @@ function eBattery(x, y, width = 50, height = 50, Text = null) {
     this.Text = Text;
     this.node = { left: new eNode(this, 'left'), right: new eNode(this, 'right') };
     this.graphic_C = new Graphic(this, 'squ', this.rightBot.x, this.rightBot.y, 6);
+    this.graphic_left = new Graphic(this, 'diamond',this.left);
     this.id ;
 }
 
