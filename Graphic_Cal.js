@@ -1,6 +1,8 @@
 function point(a, b=null) {
     if(a instanceof MouseEvent){
-        return { x: a.pageX * CanvQualityEnhanceVector / scaleFactor, y: a.pageY * CanvQualityEnhanceVector / scaleFactor}
+        return { 
+            x: a.pageX * CanvQualityEnhanceVector / Board.scaleFactor ,
+            y: a.pageY * CanvQualityEnhanceVector / Board.scaleFactor }
     }
     if(a.x && a.y){
         return a;

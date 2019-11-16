@@ -32,7 +32,9 @@ function EventHandler(CANV) {
     }
     function dragging(k, onElement) {
         (onElement instanceof eNode) && doEvent.create(onElement);
-        (onElement == null) && doEvent.multiplySelect(k);
+        if(onElement == null)  {
+            _keyState.space ? doEvent.StartMove(k) : doEvent.multiplySelect(k);
+        }
         if (onElement instanceof eBattery) {
             if (onElement.selected == false) {
                 doEvent.singleSelect(onElement);
@@ -46,9 +48,10 @@ function EventHandler(CANV) {
         p = point(e);
 
         var onElement = Overall.isOn(p);
-        (onElement == null) && doEvent.create(new eBattery(p.x - 25, p.y - 25));
+        // (onElement == null) && doEvent.create(new eBattery(p.x - 25, p.y - 25));
         onElement instanceof eNode && doEvent.remove(onElement);
         onElement instanceof eBattery && doEvent.textEdit(onElement);
+        Board.reset();
         Board.redraw();
         return;
     }

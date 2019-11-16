@@ -5,23 +5,26 @@ function Canv(canvas, contentList) {
     this.onCreate = false;
     this.onSelection = false;
     this.onControl = null;
+    this.scaleFactor = 1;
     this.ConnectionNodeSize = 8;
+    this._startPoint = point(0,0);
+    
 }
 var cv = Canv.prototype;
 cv.magnetPoint = function (e) {
     const magnetDist = 30;
     p = point(e);
-    var result = { position:p, element: null }
+    var result = { position: p, element: null }
     this.list.forEach(function (i) {
         if (!i.selected) {
             if (Di_lessThan(i.node.left.position, result.position, magnetDist)) {
-                result = {position: i.node.left.position, element:i.node.left.bundle};
-                
+                result = { position: i.node.left.position, element: i.node.left.bundle };
+
                 return false;
             }
             if (Di_lessThan(i.node.right.position, result.position, magnetDist)) {
                 result = { position: i.node.right.position, element: i.node.right.bundle };
-                
+
                 return false;
             }
         }
@@ -31,26 +34,31 @@ cv.magnetPoint = function (e) {
 }
 
 cv.clear = function () {
-    d.clearRect(0, 0, Canvas.width, Canvas.height);
+    d.clearRect(
+        0 - this._startPoint.x, 
+        0 - this._startPoint.y, 
+        Canvas.width / this.scaleFactor, 
+        Canvas.height / this.scaleFactor );
 }
 
 cv.redraw = function () {
     this.clear();
-
     // draw all links, make links on the bottom;
-    _ResourceManager.link.forEach(j=>{
+    _ResourceManager.link.forEach(j => {
         Draw(j);
     });
 
     //draw all seleted elements link control;
-    _ResourceManager.elementSelection.forEach(k=>{
+    _ResourceManager.elementSelection.forEach(k => {
         drawCtrl(k.node.left);
         drawCtrl(k.node.right);
     });
 
     this.list.forEach(function (i) {
         Draw(i);
-    })
+    });
+    CanvDraw.rect(2, 2, Canvas.width,52);
+    CanvStyle.Element();
 }
 
 
@@ -77,8 +85,8 @@ cv.isOnElement = function (e) {
     this.list.forEach(function (i) {
         // i.OnElementDetect();      
         if (i.graphic.isOn(e)) {
-            result = { element:i }
-            
+            result = { element: i }
+
             return false;// escape forEach
         }
     });
@@ -90,8 +98,8 @@ cv.isOnControl = function (e) {
     var list = _ResourceManager.elementSelection;
     list.forEach(
         function (i) {
-            result=i.isOnControl(e);
-            if(result){
+            result = i.isOnControl(e);
+            if (result) {
                 return false;
             }
         }
@@ -99,7 +107,15 @@ cv.isOnControl = function (e) {
     return result;
 }
 
-cv.ShowControlPoint = function(element){
+cv.ShowControlPoint = function (element) {
     element.node.left.draw();
     element.node.right.draw();
+}
+cv.reset = function(){
+    this.Board.translate(-this._startPoint.x,-this._startPoint.y);
+    console.log(this._startPoint);
+    
+    this._startPoint = point(0,0);
+    this.Board.scale(1 / this.scaleFactor, 1 / this.scaleFactor);
+    this.scaleFactor =1;
 }

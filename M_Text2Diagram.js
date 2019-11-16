@@ -10,7 +10,7 @@ function Text2Diagram(input) {
 }
 
 
-const _startLocation = { x: 50, y: 50 };
+const _startLocation = point(50,50);
 const _lineHeight = _singleLetterHeight;
 const _lineWidth = 20;
 const _gapping = 20;
@@ -50,6 +50,7 @@ t_Node.prototype.locationUpdate = function (Xstart, Ystart) {
         _yAddtion += _item.childHeight;
     }
 }
+
 
 function t_NodeGenerator(list) {
     let _tnodeChain = [];

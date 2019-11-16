@@ -2,20 +2,37 @@
  * doEvent can do element level operation
  * create/remove/size/move/size/textEdit/textCancel/select/unselect
  */
-var scaleFactor = 1 ;
+
 var doEvent = {
-    scroll: function(e){
-        let _factor = e.deltaY < 0 ?1.1 : 0.9;
-        scaleFactor = scaleFactor * _factor;
-        console.log(scaleFactor);
-        
+    scroll: function (e) {
+        let _factor = e.deltaY < 0 ? 1.1 : 0.9;
+        Board.scaleFactor *=  _factor ;
         canv.scale(_factor, _factor);
         Board.redraw();
+    },
+    StartMove: function (k) {
+
+        let
+            fromE = point(k);
+
+        Canvas.onmousemove = function (e) {
+            let p = point(e);
+            let _offset = point(p.x - fromE.x, p.y - fromE.y);
+            Board._startPoint.x += _offset.x;
+            Board._startPoint.y += _offset.y;
+            canv.translate(_offset.x, _offset.y);
+            Board.redraw();
+            fromE = p;
+        }
+        Canvas.onmouseup = function () {
+            Canvas.onmousemove = null;
+            Board.redraw();
+        }
     },
     create: function (input) {
         if (input instanceof eBattery == true) {
             _ResourceManager.push(input);
-            _History.record();            
+            _History.record();
             return;
         }
         if (input instanceof eNode == true) {
@@ -43,7 +60,7 @@ var doEvent = {
             input.from.linkTo.add(input);
             input.to.linked.add(input);
             _ResourceManager.push(input);
-            
+
             return;
         }
     },
@@ -53,13 +70,13 @@ var doEvent = {
             input.to.linked.delete(input);
             _ResourceManager.del(input);
             _History.record();
-            
+
 
             return;
         }
         if (input instanceof eNode) {
             this.remove(input.bundle);
-            
+
 
             return;
         }
@@ -71,7 +88,7 @@ var doEvent = {
                 doEvent.remove(i)
             });
             _History.record();
-            
+
 
             return;
         }
@@ -83,7 +100,7 @@ var doEvent = {
                 i.node.right.bundle.clear();
             });
             _ResourceManager.elementSelection.clear();
-            
+
             _History.record();
             return;
         }
@@ -93,12 +110,12 @@ var doEvent = {
             var last_e = e;
             Canvas.onmouseup = function () {
                 _History.record();
-                
+
                 Canvas.onmousemove = null;
             };
             Canvas.onmousemove = function (mousemove_e) {
                 var p = point(mousemove_e);
-                var offset = { x: (p.x - last_e.x), y: (p.y - last_e.y) }
+                var offset = point( (p.x - last_e.x), (p.y - last_e.y) );
                 _ResourceManager.elementSelection.forEach(function (i) {
                     i.width = i.width + offset.x;
                     i.height = i.height + offset.y;
@@ -111,24 +128,24 @@ var doEvent = {
         }
     },
     move: function (input, e = null) {
-        if (input instanceof eBattery) {
-            var last_e = e;
-            Canvas.onmouseup = function () {
-                Canvas.onmousemove = null;
-            };
-            Canvas.onmousemove = function (mousemove_e) {
-                var p = point(mousemove_e);
-                var offset = { x: (p.x - last_e.x), y: (p.y - last_e.y) }
-                _ResourceManager.elementSelection.forEach(function (i) {
-                    i.x = i.x + offset.x;
-                    i.y = i.y + offset.y;
-                    i.node.left.update();
-                    i.node.right.update();
-                });
-                Board.redraw();
-                last_e = p;
-            }
+        if (input instanceof eBattery == false) { return; }
+        var last_e = e;
+        Canvas.onmouseup = function () {
+            Canvas.onmousemove = null;
+        };
+        Canvas.onmousemove = function (mousemove_e) {
+            var p = point(mousemove_e);
+            var offset = point((p.x - last_e.x), (p.y - last_e.y));
+            _ResourceManager.elementSelection.forEach(function (i) {
+                i.x += offset.x;
+                i.y += offset.y;
+                i.node.left.update();
+                i.node.right.update();
+            });
+            Board.redraw();
+            last_e = p;
         }
+
     },
     multiplySelect: function (k) {
 
@@ -147,6 +164,7 @@ var doEvent = {
             CanvDraw.rect(fromE.x, fromE.y, p.x - fromE.x, p.y - fromE.y);
             CanvStyle.SelectionBox();
         }
+        return false;
     },
     singleSelect: function (input) {
         this.resetSelect();
@@ -162,9 +180,7 @@ var doEvent = {
         _ResourceManager.elementSelection.clear();
     },
     textEdit: function (input) {
-        // var text = document.querySelector('textarea');
-        // var textarea = document.querySelector('textarea');
-        // textarea!=null && body.removeChild(textarea);
+
         var text = document.createElement('textarea');
         text.setAttribute('elementID', input.id);
         text.id = 'ElementAtt';
@@ -214,6 +230,3 @@ var doEvent = {
     }
 }
 
-var BoardEvent = {
-
-}
