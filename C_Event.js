@@ -7,12 +7,15 @@ var doEvent = {
     scroll: function (e) {
         let _factor = e.deltaY < 0 ? 1.1 : 0.9;
         Board.scaleFactor *=  _factor ;
+        Board._startPoint.x /= _factor;
+        Board._startPoint.y /= _factor;
+
         canv.scale(_factor, _factor);
         Board.redraw();
     },
     StartMove: function (k) {
 
-        let fromE = point(k);
+        let fromE = point(k.mouse.pageX, k.mouse.pageY);
         Canvas.onmousemove = function (e) {
             let p = point(e.pageX,e.pageY);
             let _offset = point(p.x - fromE.x, p.y - fromE.y);

@@ -7,8 +7,8 @@ function Canv(canvas, contentList) {
     this.onControl = null;
     this.scaleFactor = 1;
     this.ConnectionNodeSize = 8;
-    this._startPoint = point(0,0);
-    
+    this._startPoint = point(0, 0);
+
 }
 var cv = Canv.prototype;
 cv.magnetPoint = function (e) {
@@ -35,10 +35,10 @@ cv.magnetPoint = function (e) {
 
 cv.clear = function () {
     d.clearRect(
-        -this._startPoint.x, 
-        -this._startPoint.y, 
-        Canvas.width, 
-        Canvas.height );
+        -this._startPoint.x,
+        -this._startPoint.y,
+        Canvas.width / this.scaleFactor,
+        Canvas.height / this.scaleFactor);
 }
 
 cv.redraw = function () {
@@ -58,7 +58,7 @@ cv.redraw = function () {
         Draw(i);
     });
 
-    CanvDraw.c(0,0,2);
+    CanvDraw.c(0, 0, 2);
     CanvStyle.Element();
 
 }
@@ -113,9 +113,9 @@ cv.ShowControlPoint = function (element) {
     element.node.left.draw();
     element.node.right.draw();
 }
-cv.reset = function(){
-    this.Board.translate(-this._startPoint.x,-this._startPoint.y);
-    this._startPoint = point(0,0);
+cv.reset = function () {
+    this.Board.translate(-this._startPoint.x, -this._startPoint.y);
+    this._startPoint = point(0, 0);
     this.Board.scale(1 / this.scaleFactor, 1 / this.scaleFactor);
-    this.scaleFactor =1;
+    this.scaleFactor = 1;
 }

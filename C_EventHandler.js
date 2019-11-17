@@ -12,15 +12,20 @@ function EventHandler(CANV) {
         move = p;
         onElement = Overall.isOn(p);
         CANV.onmousemove = function (x) {
-             move = x;
+            move = x;
             dragging(p, onElement);
         };
-   
+
         CanvDraw.c(p.x, p.y, 2);
         CanvStyle.Element();
-console.log('----------------')
-        CanvDraw.c(-Board._startPoint.x, -Board._startPoint.y, 2);
+        console.log('----------------');
+
+        CanvDraw.c(-Board._startPoint.x, -Board._startPoint.y, 20);
         CanvStyle.Element();
+
+        CanvDraw.c(0, 0, 2);
+        CanvStyle.Element();
+
         CanvStyle.Text();
         CanvDraw.t('mouse:' + e.pageX + ' ' + e.pageY, p.x, p.y + _singleLetterHeight, 200);
         console.log('mouse:' + e.pageX + ' ' + e.pageY);
@@ -32,7 +37,7 @@ console.log('----------------')
         CanvDraw.t('scaleFactor:' + Board.scaleFactor, p.x, p.y + (_singleLetterHeight * 4), 200);
         console.log('scaleFactor:' + Board.scaleFactor);
         CanvDraw.t('point:' + p.x + ' ' + p.y, p.x, p.y + (_singleLetterHeight * 2), 200);
-        console.log('point:' + p.x + ' ' + p.y, p.x);
+        console.log('point:' + p.x + ' ' + p.y);
 
 
     }
@@ -53,7 +58,7 @@ console.log('----------------')
     }
     function dragging(k, onElement) {
         (onElement instanceof eNode) && doEvent.create(onElement);
-        if(onElement == null)  {
+        if (onElement == null) {
             _keyState.space ? doEvent.StartMove(k) : doEvent.multiplySelect(k);
         }
         if (onElement instanceof eBattery) {

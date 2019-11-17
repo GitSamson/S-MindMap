@@ -1,8 +1,9 @@
 function point(a, b = null) {
     if (a instanceof MouseEvent) {
         return {
-            x: Math.round((a.pageX - (Board._startPoint.x*Board.scaleFactor)) * CanvQualityEnhanceVector),
-            y: Math.round((a.pageY - (Board._startPoint.y * Board.scaleFactor)) * CanvQualityEnhanceVector)
+            x: Math.round((a.pageX* CanvQualityEnhanceVector/ Board.scaleFactor- (Board._startPoint.x )) ),
+            y: Math.round((a.pageY* CanvQualityEnhanceVector/ Board.scaleFactor- (Board._startPoint.y )) ),
+            mouse: a
         }
 
     }
