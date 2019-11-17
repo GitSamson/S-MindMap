@@ -37,8 +37,9 @@ Node: function() {
 
 Text: function() {
     d.setLineDash([]);
+    d.fillStyle = 'black';
+    d.strokeStyle = 'grey';
     d.font = _singleLetterHeight+'px Calibri';
-        d.fillStyle = 'black'
     },
 CtrlDot : function(){
     

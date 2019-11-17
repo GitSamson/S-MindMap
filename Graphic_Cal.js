@@ -1,14 +1,16 @@
-function point(a, b=null) {
-    if(a instanceof MouseEvent){
-        return { 
-            x: a.pageX * CanvQualityEnhanceVector / Board.scaleFactor ,
-            y: a.pageY * CanvQualityEnhanceVector / Board.scaleFactor }
+function point(a, b = null) {
+    if (a instanceof MouseEvent) {
+        return {
+            x: Math.round((a.pageX - (Board._startPoint.x*Board.scaleFactor)) * CanvQualityEnhanceVector),
+            y: Math.round((a.pageY - (Board._startPoint.y * Board.scaleFactor)) * CanvQualityEnhanceVector)
+        }
+
     }
-    if(a.x && a.y){
+    if (b === null) {
         return a;
     }
-    else{
-        return ({ x: a, y: b });
+    else {
+        return ({ x: Math.round(a), y: Math.round(b) });
     }
 }
 function Di_PowDistance(P1, P2) {
@@ -16,13 +18,14 @@ function Di_PowDistance(P1, P2) {
         return (((P2.x - P1.x) * (P2.x - P1.x)) + ((P2.y - P1.y) * (P2.y - P1.y)))
     }
     else {
-        return 0    }
+        return 0
+    }
 }
 function Di_lessThan(P1, P2, c, lessThan = true) {
-    
+
     if (P1 != P2) {
-        var x = ((Math.pow((P1.x - P2.x), 2) + Math.pow(P1.y - P2.y, 2) )< Math.pow(c, 2));
-        
+        var x = ((Math.pow((P1.x - P2.x), 2) + Math.pow(P1.y - P2.y, 2)) < Math.pow(c, 2));
+
     } else {
         var x = 0;
     }
@@ -38,7 +41,8 @@ function Di_lessThan(P1, P2, c, lessThan = true) {
 }
 function Di_Closest(P1, P2, e) {
     var x = Math.pow(P1.x - e.x, 2) + Math.pow(P1.y - e.y, 2) <= Math.pow(P2.x - e.x, 2) + Math.pow(P2.y - e.y, 2) ? P1 : P2;
-    return x;}
+    return x;
+}
 
 function midPoint(a, b) {
     {
@@ -64,13 +68,13 @@ var List = {
         }
         return list;
     },
-    merge: function (setA,setB) {
+    merge: function (setA, setB) {
         setB.forEach(i => {
             setA.add(i);
         });
         return setA;
     },
-    remove:function(item,list){
+    remove: function (item, list) {
         var a = new Set(list);
         a.delete(a);
         return [...a]

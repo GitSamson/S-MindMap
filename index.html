@@ -7,7 +7,7 @@
     }
 </style>
 
-<body style="margin:0;padding:0">
+<body style="margin:0;padding:0;overflow: hidden;">
     <div id='bar'>
         <input type="file" id="files" />
         <input type="button" id="export" value="保存" />
@@ -70,11 +70,18 @@
     
 
     function resizeCanvas() {
-        Canvas.style.width = (window.innerWidth/3*2+ 'px');
-        Canvas.style.heigh = (window.innerHeight - 22 + 'px');
+        // Canvas.style.width = (window.innerWidth/3*2+ 'px');
+        // Canvas.style.heigh = (window.innerHeight - 22 + 'px');
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        Canvas.width =( w/3*2)* CanvQualityEnhanceVector;
+        Canvas.height = (h-22)* CanvQualityEnhanceVector;
+        console.log(window.innerHeight);
+        Canvas.style.width =   w/3*2+'px';
+        Canvas.style.height =  h-22+ 'px';
 
-         Canvas.width = window.innerWidth * CanvQualityEnhanceVector;
-         Canvas.height = (window.innerHeight - 22) * CanvQualityEnhanceVector;
+        //  Canvas.width = window.innerWidth * CanvQualityEnhanceVector;
+        //  Canvas.height = (window.innerHeight - 22) * CanvQualityEnhanceVector;
         Bar.style.top = (window.innerHeight - 22 + 'px');
         inputTextarea.style.height = window.innerHeight;
         inputTextarea.style.left = window.innerWidth / 3 * 2;

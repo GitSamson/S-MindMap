@@ -12,11 +12,9 @@ var doEvent = {
     },
     StartMove: function (k) {
 
-        let
-            fromE = point(k);
-
+        let fromE = point(k);
         Canvas.onmousemove = function (e) {
-            let p = point(e);
+            let p = point(e.pageX,e.pageY);
             let _offset = point(p.x - fromE.x, p.y - fromE.y);
             Board._startPoint.x += _offset.x;
             Board._startPoint.y += _offset.y;
