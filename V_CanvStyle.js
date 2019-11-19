@@ -14,7 +14,7 @@ var CanvStyle = {
         d.lineWidth = 3;
         d.fillStyle = "white";
         d.fill();
-        d.stroke();
+        // d.stroke();
     },
 ElementSelected: function () {
     d.strokeStyle = '#0066FF';

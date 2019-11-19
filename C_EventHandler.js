@@ -16,28 +16,7 @@ function EventHandler(CANV) {
             dragging(p, onElement);
         };
 
-        CanvDraw.c(p.x, p.y, 2);
-        CanvStyle.Element();
-        console.log('----------------');
-
-        CanvDraw.c(-Board._startPoint.x, -Board._startPoint.y, 20);
-        CanvStyle.Element();
-
-        CanvDraw.c(0, 0, 2);
-        CanvStyle.Element();
-
-        CanvStyle.Text();
-        CanvDraw.t('mouse:' + e.pageX + ' ' + e.pageY, p.x, p.y + _singleLetterHeight, 200);
-        console.log('mouse:' + e.pageX + ' ' + e.pageY);
-
-
-        CanvDraw.t("startPoint:" + Board._startPoint.x + ' ' + Board._startPoint.y, p.x, p.y + (_singleLetterHeight * 3), 200);
-        console.log("startPoint:" + Board._startPoint.x + ' ' + Board._startPoint.y);
-
-        CanvDraw.t('scaleFactor:' + Board.scaleFactor, p.x, p.y + (_singleLetterHeight * 4), 200);
-        console.log('scaleFactor:' + Board.scaleFactor);
-        CanvDraw.t('point:' + p.x + ' ' + p.y, p.x, p.y + (_singleLetterHeight * 2), 200);
-        console.log('point:' + p.x + ' ' + p.y);
+        // doEvent.checkMode(e);
 
 
     }

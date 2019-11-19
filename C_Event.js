@@ -4,6 +4,31 @@
  */
 
 var doEvent = {
+    checkMode: function(e){
+        var p =point(e);
+        CanvDraw.c(p.x, p.y, 2);
+        CanvStyle.Element();
+        console.log('----------------');
+
+        CanvDraw.c(-Board._startPoint.x, -Board._startPoint.y, 20);
+        CanvStyle.Element();
+
+        CanvDraw.c(0, 0, 2);
+        CanvStyle.Element();
+
+        CanvStyle.Text();
+        CanvDraw.t('mouse:' + e.pageX + ' ' + e.pageY, p.x, p.y + _singleLetterHeight, 200);
+        console.log('mouse:' + e.pageX + ' ' + e.pageY);
+
+
+        CanvDraw.t("startPoint:" + Board._startPoint.x + ' ' + Board._startPoint.y, p.x, p.y + (_singleLetterHeight * 3), 200);
+        console.log("startPoint:" + Board._startPoint.x + ' ' + Board._startPoint.y);
+
+        CanvDraw.t('scaleFactor:' + Board.scaleFactor, p.x, p.y + (_singleLetterHeight * 4), 200);
+        console.log('scaleFactor:' + Board.scaleFactor);
+        CanvDraw.t('point:' + p.x + ' ' + p.y, p.x, p.y + (_singleLetterHeight * 2), 200);
+        console.log('point:' + p.x + ' ' + p.y);
+    },
     scroll: function (e) {
         let _factor = e.deltaY < 0 ? 1.1 : 0.9;
         Board.scaleFactor *=  _factor ;
@@ -18,7 +43,7 @@ var doEvent = {
         let fromE = point(k.mouse.pageX, k.mouse.pageY);
         Canvas.onmousemove = function (e) {
             let p = point(e.pageX,e.pageY);
-            let _offset = point(p.x - fromE.x, p.y - fromE.y);
+            let _offset = point((p.x - fromE.x )/ Board.scaleFactor,( p.y - fromE.y )/ Board.scaleFactor);
             Board._startPoint.x += _offset.x;
             Board._startPoint.y += _offset.y;
             canv.translate(_offset.x, _offset.y);

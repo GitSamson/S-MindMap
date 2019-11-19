@@ -19,12 +19,10 @@ cv.magnetPoint = function (e) {
         if (!i.selected) {
             if (Di_lessThan(i.node.left.position, result.position, magnetDist)) {
                 result = { position: i.node.left.position, element: i.node.left.bundle };
-
                 return false;
             }
             if (Di_lessThan(i.node.right.position, result.position, magnetDist)) {
                 result = { position: i.node.right.position, element: i.node.right.bundle };
-
                 return false;
             }
         }
@@ -60,9 +58,10 @@ cv.redraw = function () {
 
     CanvDraw.c(0, 0, 2);
     CanvStyle.Element();
+    CanvStyle.Text();
+    CanvDraw.t('basepoint',0,_singleLetterHeight,200);
 
 }
-
 
 cv.resetSelect = function () {
     this.list.forEach(function (i) {
