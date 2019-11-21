@@ -9,7 +9,6 @@ var CanvStyle = {
     },
     Element: function () {
         d.strokeStyle = 'black';
-
         d.setLineDash([]);
         d.lineWidth = 3;
         d.fillStyle = "white";

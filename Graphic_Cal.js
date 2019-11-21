@@ -82,3 +82,34 @@ var List = {
     }
 
 }
+
+function Vector(pointA,pointB){
+    this.p1 = pointA;
+    this.p2 = pointB;
+}
+
+
+Vector.prototype.trans = function(...args){
+
+}
+Vector.prototype.vector=function(){
+    return(point(this.p1.x-this.p2.x,this.p1.y-this.p2.y));
+}
+var UCS = {
+    save : function(){d.save();},
+    update : function(angle=0,point){
+        if(!angle){
+            var _angle = Math.PI/(180/angle);
+            d.rotate(_angle);
+        }
+        if(point==null){return;}
+        d.translate(point.x, point.y);
+    },
+    restore:function(){d.restore()},
+    temp: function (fx,angle = 0, point){
+        this.save();
+        this.update(angle,point);
+        fx();
+        this.restore();
+    }
+}
