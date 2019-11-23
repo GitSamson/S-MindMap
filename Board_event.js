@@ -8,8 +8,8 @@ function Canv(canvas, contentList) {
     this.scaleFactor = 1;
     this.ConnectionNodeSize = 8;
     this._startPoint = point(0, 0);
-
 }
+
 var cv = Canv.prototype;
 cv.magnetPoint = function (e) {
     const magnetDist = 30;

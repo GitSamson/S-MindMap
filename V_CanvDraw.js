@@ -17,14 +17,19 @@ var CanvDraw = {
         d.fillText(t, x , y  , width,height);
     },
     pl : function (...args){
-        let _position = [...args];
+        let _position = Array.prototype.slice.call(args);
         console.log(_position);
         d.beginPath();
         d.moveTo(_position[0][0], _position[0][1]);
-        
-        for (let i = 1; i < 4; i++) {
+        for (let i = 1; i < _position.length; i++) {
             d.lineTo(_position[i][0],_position[i][1]);
         }
-        d.closePath();
+        CanvStyle.Link();
+    return ({p:_position,
+        beginningRadian:Math.atan((_position[0][0]-_position[1][0])/(_position[0][1]-_position[1][1])),
+        endRadian: Math.atan((_position[_position.length-1][0]-_position[_position.length-2][0])/(_position[_position.length-1][1]-_position[_position.length-2][1]))
+    })
     }
 }
+
+

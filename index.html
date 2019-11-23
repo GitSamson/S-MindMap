@@ -16,7 +16,7 @@
     <div>
 
 
-        <canvas id="MyCanvas"    stroke='black' style = 'display:block'></canvas>
+        <canvas id="MyCanvas" stroke='black' style='display:block'></canvas>
     </div>
     <textarea id='inputWindow' rows='10' style='position: absolute; left: 800;'></textarea>
 </body>
@@ -53,32 +53,31 @@
     var frame = document.getElementById('Canvframe');
     Canvas.style.position = 'absolute';
     Bar.style.position = 'absolute';
-    window.addEventListener("resize", throttle(resizeCanvas,1000));
+    window.addEventListener("resize", throttle(resizeCanvas, 1000));
     resizeCanvas(); //initial resize window event
 
     function throttle(fn, delay) {
         let flag = true;
-        return(...arg)=>{
-            if(!flag){return false};
+        return (...arg) => {
+            if (!flag) { return false };
             flag = false;
-            setTimeout(()=>{
-            fn.apply(this,arg);
-            flag = true;
-            },delay);
+            setTimeout(() => {
+                fn.apply(this, arg);
+                flag = true;
+            }, delay);
         }
     }
-    
+
 
     function resizeCanvas() {
         // Canvas.style.width = (window.innerWidth/3*2+ 'px');
         // Canvas.style.heigh = (window.innerHeight - 22 + 'px');
         var w = window.innerWidth;
         var h = window.innerHeight;
-        Canvas.width =( w/3*2)* CanvQualityEnhanceVector;
-        Canvas.height = (h-22)* CanvQualityEnhanceVector;
-        console.log(window.innerHeight);
-        Canvas.style.width =   w/3*2+'px';
-        Canvas.style.height =  h-22+ 'px';
+        Canvas.width = (w / 3 * 2) * CanvQualityEnhanceVector;
+        Canvas.height = (h - 22) * CanvQualityEnhanceVector;
+        Canvas.style.width = w / 3 * 2 + 'px';
+        Canvas.style.height = h - 22 + 'px';
 
         //  Canvas.width = window.innerWidth * CanvQualityEnhanceVector;
         //  Canvas.height = (window.innerHeight - 22) * CanvQualityEnhanceVector;
@@ -86,7 +85,7 @@
         inputTextarea.style.height = window.innerHeight;
         inputTextarea.style.left = window.innerWidth / 3 * 2;
         inputTextarea.style.width = window.innerWidth > 300 ? window.innerWidth / 3 : 300;
-        return ()=>{return Board.redraw()}
+        return () => { return Board.redraw() }
     }
 
     d = Canvas.getContext('2d');
@@ -100,8 +99,28 @@
         _ResourceManager.clear();
         InitialAll();
         Text2Diagram(inputTextarea.value);
-        
+
     }
+    // var asda = CanvDraw.pl([50,50],[100,50],[300,300]);
+    UCS.temp(function () {
+        CanvDraw.pl([0, 0], [-10, -10],
+            [0, 20], [10, -10], [0, 0])
+    },
+        angle_radian(23),
+        point(100, 100));
+    UCS.temp(function () {
+        CanvDraw.pl([0, 0], [-10, -10],
+            [0, 20], [10, -10], [0, 0])
+    },
+        angle_radian(30),
+        point(100, 100));
+    UCS.temp(function () {
+        CanvDraw.pl([0, 0], [-10, -10],
+            [0, 20], [10, -10], [0, 0])
+    },
+        angle_radian(45),
+        point(100, 100));
+
 
 </script>
 

@@ -148,6 +148,4 @@ Graphic.prototype.draw = function () {
             CanvStyle.CtrlDot();
             break;
     }
-
-
 }
