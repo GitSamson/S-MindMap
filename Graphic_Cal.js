@@ -1,11 +1,15 @@
+const pi = parseFloat(3.14);
 function point(a, b = null) {
     if (a instanceof MouseEvent) {
         return {
-            x: Math.round((a.pageX* CanvQualityEnhanceVector/ Board.scaleFactor- (Board._startPoint.x )) ),
-            y: Math.round((a.pageY* CanvQualityEnhanceVector/ Board.scaleFactor- (Board._startPoint.y )) ),
+            x: Math.round((a.pageX * CanvQualityEnhanceVector / Board.scaleFactor - (Board._startPoint.x))),
+            y: Math.round((a.pageY * CanvQualityEnhanceVector / Board.scaleFactor - (Board._startPoint.y))),
             mouse: a
         }
-
+    }
+    if (a.constructor === Array) {
+        a[0].
+        return { x: a[0], y: a[1] }
     }
     if (b === null) {
         return a;
@@ -23,7 +27,6 @@ function Di_PowDistance(P1, P2) {
     }
 }
 function Di_lessThan(P1, P2, c, lessThan = true) {
-
     if (P1 != P2) {
         var x = ((Math.pow((P1.x - P2.x), 2) + Math.pow(P1.y - P2.y, 2)) < Math.pow(c, 2));
 
@@ -83,41 +86,67 @@ var List = {
 
 }
 
-function Vector(pointA,pointB){
+function Vector(pointA, pointB) {
     this.p1 = pointA;
     this.p2 = pointB;
+    this.radian = this.radian(this.p1, this.p2);
+}
+
+Vector.prototype.trans = function (...args) {
+
+}
+Vector.prototype.vector = function () {
+    return (point(this.p1.x - this.p2.x, this.p1.y - this.p2.y));
+}
+
+Vector.radian = function (pointA_from, pointB_to) {
+    let p1 = pointA_from;
+    let p2 = pointB_to;
+    let _x = p2.x - p1.x;
+    let _y = p2.y - p1.y;
+    let output = Math.atan(
+        _y / _x
+    );
+    
+    if (_x > 0 && _y >= 0) { output -= pi }
+    if (_y < 0 ) { output += pi }
+    if (output >= pi) { output -= pi }
+
+    output += (pi / 2);//fix canvas default UCS rotate  
+    return (output);
 }
 
 
-Vector.prototype.trans = function(...args){
-
-}
-Vector.prototype.vector=function(){
-    return(point(this.p1.x-this.p2.x,this.p1.y-this.p2.y));
-}
 var UCS = {
-    save : function(){d.save();},
-    update : function(radian=0,point){
-        if (radian!=0){
+    save: function () { d.save(); },
+    update: function (radian = 0, point = null) {
+        //move first!
+        if (point == null) { return; }
+        d.translate(point.x, point.y);
+        if (radian != 0) {
             d.rotate(radian);
         }
-        if(point==null){return;}
-        d.translate(point.x, point.y);
     },
-    restore:function(){d.restore()},
-    temp: function (fx, radian = 0, point){
+    restore: function () { d.restore() },
+    temp: function (fx, radian = 0, point = null) {
         this.save();
-        this.update(radian,point);
+        this.update(radian, point);
         fx();
         this.restore();
     }
 }
 
 
+var transfer = {
+    floorFloat: function(_float){
+        return parseFloat(_float.toFixed(2))
+    },
+    angle_radian: function (angle) {
+        return this.floorFloat(angle / 180 * pi);
+    },
+    radian_angle: function (radian) {
+        return this.floorFloat((radian * 180 / pi));
+    }
+}
 
-function angle_radian(angle){
-    return angle/180*Math.PI;
-}
-function radian_angle(radian){
-    return radian*180/Math.PI;
-}
+

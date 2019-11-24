@@ -70,17 +70,12 @@
 
 
     function resizeCanvas() {
-        // Canvas.style.width = (window.innerWidth/3*2+ 'px');
-        // Canvas.style.heigh = (window.innerHeight - 22 + 'px');
         var w = window.innerWidth;
         var h = window.innerHeight;
         Canvas.width = (w / 3 * 2) * CanvQualityEnhanceVector;
         Canvas.height = (h - 22) * CanvQualityEnhanceVector;
         Canvas.style.width = w / 3 * 2 + 'px';
         Canvas.style.height = h - 22 + 'px';
-
-        //  Canvas.width = window.innerWidth * CanvQualityEnhanceVector;
-        //  Canvas.height = (window.innerHeight - 22) * CanvQualityEnhanceVector;
         Bar.style.top = (window.innerHeight - 22 + 'px');
         inputTextarea.style.height = window.innerHeight;
         inputTextarea.style.left = window.innerWidth / 3 * 2;
@@ -89,8 +84,6 @@
     }
 
     d = Canvas.getContext('2d');
-    // initial text, otherwise textmeasure will not correct
-
     inputTextarea.value = 'level0\n-L1\n-L1\n--L2\n--L2_1\n\---L3\nL0\nL0';
 
     InitialAll();
@@ -101,26 +94,22 @@
         Text2Diagram(inputTextarea.value);
 
     }
-    // var asda = CanvDraw.pl([50,50],[100,50],[300,300]);
-    UCS.temp(function () {
-        CanvDraw.pl([0, 0], [-10, -10],
-            [0, 20], [10, -10], [0, 0])
-    },
-        angle_radian(23),
-        point(100, 100));
-    UCS.temp(function () {
-        CanvDraw.pl([0, 0], [-10, -10],
-            [0, 20], [10, -10], [0, 0])
-    },
-        angle_radian(30),
-        point(100, 100));
-    UCS.temp(function () {
-        CanvDraw.pl([0, 0], [-10, -10],
-            [0, 20], [10, -10], [0, 0])
-    },
-        angle_radian(45),
-        point(100, 100));
 
+    var asda = CanvDraw.pl([50, 50], [90, 200], [30, 200],[100,100]);
+
+    UCS.temp(function () {
+        CanvDraw.pl([0, 0], [-5, -5],
+            [0, 8], [5, -5], [0, 0]);
+    },
+        asda.beginningRadian,
+        asda.beginning);
+
+    UCS.temp(function () {
+        CanvDraw.pl([0, 0], [-5, -5],
+            [0, 8], [5, -5], [0, 0]);
+    },
+        asda.endRadian,
+        asda.end);
 
 </script>
 

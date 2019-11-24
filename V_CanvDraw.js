@@ -2,33 +2,42 @@ const _margin = 5;
 const _singleLetterHeight = 30;
 
 var CanvDraw = {
-    rect: function (x , y , w , h ){
+    rect: function (x, y, w, h) {
         d.beginPath();
         d.rect(x, y, w, h);
         d.closePath();
     },
-    c: function (x,y,r){
+    c: function (x, y, r) {
         d.beginPath();
         d.arc(x, y, r, 0, Math.PI * 2);
         d.closePath();
     },
-    t:function(t,x,y,width,height = _singleLetterHeight){
-        
-        d.fillText(t, x , y  , width,height);
+    t: function (t, x, y, width, height = _singleLetterHeight) {
+
+        d.fillText(t, x, y, width, height);
     },
-    pl : function (...args){
+    pl: function (...args) {
+        let _position = this.symbol(false,...args);
+        CanvStyle.Link();
+        let beginning = point(_position[0]);
+        let end = point(_position[_position.length - 1]);
+        return ({
+            p: _position,
+            beginningRadian: Vector.radian(point(_position[1]),beginning),
+            endRadian: Vector.radian(point(_position[_position.length - 2]),end),
+            beginning,
+            end
+        });
+    },
+    symbol: function(closePath=true,...args){
         let _position = Array.prototype.slice.call(args);
-        console.log(_position);
         d.beginPath();
         d.moveTo(_position[0][0], _position[0][1]);
         for (let i = 1; i < _position.length; i++) {
-            d.lineTo(_position[i][0],_position[i][1]);
+            d.lineTo(_position[i][0], _position[i][1]);
         }
-        CanvStyle.Link();
-    return ({p:_position,
-        beginningRadian:Math.atan((_position[0][0]-_position[1][0])/(_position[0][1]-_position[1][1])),
-        endRadian: Math.atan((_position[_position.length-1][0]-_position[_position.length-2][0])/(_position[_position.length-1][1]-_position[_position.length-2][1]))
-    })
+        closePath && d.closePath();
+        return _position;
     }
 }
 
