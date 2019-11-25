@@ -30,11 +30,13 @@ var CanvDraw = {
         });
     },
     symbol: function(closePath=true,...args){
-        let _position = Array.prototype.slice.call(args);
+        let _position =point( Array.prototype.slice.call(args));
+        
         d.beginPath();
-        d.moveTo(_position[0][0], _position[0][1]);
+        
+        d.moveTo(_position[0].x, _position[0].y);
         for (let i = 1; i < _position.length; i++) {
-            d.lineTo(_position[i][0], _position[i][1]);
+            d.lineTo(_position[i].x, _position[i].y);
         }
         closePath && d.closePath();
         return _position;

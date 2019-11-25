@@ -7,16 +7,25 @@ function point(a, b = null) {
             mouse: a
         }
     }
-    if (a.constructor === Array) {
-        a[0].
-        return { x: a[0], y: a[1] }
-    }
-    if (b === null) {
+    if (a.constructor === Object) {
+        
         return a;
+
     }
-    else {
+    if (a.constructor === Array) {
+        if(a[0].constructor===Number&& a[1].constructor ===Number&&a.length==2){
+        return { x: a[0], y: a[1] }
+        }
+            let output = [];
+            for (let i = 0; i < a.length; i++) {
+                const element = a[i];
+                output[i]=point(element);
+            }
+            return output;
+
+    }
+
         return ({ x: Math.round(a), y: Math.round(b) });
-    }
 }
 function Di_PowDistance(P1, P2) {
     if (P1 != P2) {

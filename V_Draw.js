@@ -29,11 +29,18 @@ function Draw(s, type = null) {
 
         var startOffset = s.from.offset;
         var targetOffset = s.to.offset;
-        canv.beginPath();
-        canv.moveTo(start.x, start.y);
-        canv.lineTo(start.x + startOffset, start.y);
-        canv.lineTo(target.x + targetOffset, target.y);
-        canv.lineTo(target.x, target.y);
+        CanvDraw.pl(
+            start, 
+            [start.x + startOffset, start.y],
+            [target.x + targetOffset, target.y],
+            target
+            );
+
+        // canv.beginPath();
+        // canv.moveTo(start.x, start.y);
+        // canv.lineTo(start.x + startOffset, start.y);
+        // canv.lineTo(target.x + targetOffset, target.y);
+        // canv.lineTo(target.x, target.y);
         CanvStyle.Link();
     }
     function d_node(s) {
