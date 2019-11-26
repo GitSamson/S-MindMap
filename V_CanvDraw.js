@@ -40,6 +40,46 @@ var CanvDraw = {
         }
         closePath && d.closePath();
         return _position;
+    },
+    arrow: function(fromPoint,endPoint,type='0'){
+        var p1 = point(fromPoint);
+        var p2 = point(endPoint);
+        switch (type) {
+            case '1':
+                var drawType = function(){
+                    CanvDraw.symbol(false,
+                    [-5,-5],[0, 0], [5, -5]);
+                    CanvStyle.Link();
+                }
+                break;
+            case '2':
+                var drawType = function () {
+                    CanvDraw.symbol(false,
+                        [-5, 0],[5, 0]);
+                    CanvStyle.Link();
+                }
+                break;
+            case '3':
+                var drawType = function () {
+                    CanvDraw.c(0,-3,3);
+                    CanvStyle.Arrow();
+                }
+                break;
+            case '4':
+                var drawType =function(){ 
+                    CanvDraw.pl([0, -5], [-5, -5],
+                    [0, 0], [5, -5], [0, -5]);
+                    CanvStyle.Arrow();
+                }
+                break;
+            default:
+                return;
+
+        }
+
+        UCS.temp(drawType,
+            Vector.radian(p1, p2),
+            p2);
     }
 }
 

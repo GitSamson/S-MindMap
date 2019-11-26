@@ -7,6 +7,7 @@ function point(a, b = null) {
             mouse: a
         }
     }
+    
     if (a.constructor === Object) {
         
         return a;

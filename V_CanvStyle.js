@@ -58,6 +58,10 @@ LinkTo : function(){
     d.setLineDash([5,5]);
     d.lineWidth = 1;
     d.stroke();
+},
+Arrow: function(){
+    d.fillStyle = 'grey';
+    d.fill();
 }
 
 

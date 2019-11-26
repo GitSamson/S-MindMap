@@ -35,13 +35,10 @@ function Draw(s, type = null) {
             [target.x + targetOffset, target.y],
             target
             );
-
-        // canv.beginPath();
-        // canv.moveTo(start.x, start.y);
-        // canv.lineTo(start.x + startOffset, start.y);
-        // canv.lineTo(target.x + targetOffset, target.y);
-        // canv.lineTo(target.x, target.y);
         CanvStyle.Link();
+        CanvDraw.arrow(
+            [target.x + targetOffset, target.y],
+            target);
     }
     function d_node(s) {
         
