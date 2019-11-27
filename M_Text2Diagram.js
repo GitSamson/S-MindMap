@@ -32,6 +32,7 @@ function t_Node(splitedString) {
     this.childHeight = 0;
     this.childWidth = 0;
 }
+
 t_Node.prototype.locationUpdate = function (Xstart, Ystart) {
     this.groupX = Xstart;
     this.groupY = Ystart;
