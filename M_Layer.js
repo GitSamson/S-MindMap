@@ -2,6 +2,7 @@ function ResourceManager (){
     this.elements = new Set();
     this.link = new Set();
     this.elementSelection = new Set();
+    this.textareaContent= [];
 }
 
 Layer_ = ResourceManager.prototype;

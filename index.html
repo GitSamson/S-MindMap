@@ -85,15 +85,12 @@
 
     d = Canvas.getContext('2d');
     inputTextarea.value = 'level0\n-L1\n-L1\n--L2\n--L2_1\n\---L3\nL0\nL0';
-
-    InitialAll();
-    Text2Diagram(inputTextarea.value);
-    inputTextarea.onkeyup = function () {
-        _ResourceManager.clear();
+    function updateText(){
         InitialAll();
-        Text2Diagram(inputTextarea.value);
-
+        _ResourceManager.tNodeChain = Text2Diagram(inputTextarea.value);
     }
+    updateText();
+    inputTextarea.onkeyup = updateText;
 
 
 

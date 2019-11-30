@@ -3,10 +3,14 @@ function Text2Diagram(input) {
     var s = input;
     if (s == false) { return; }
     s = Handle_text.lineSeperator(s).reverse();
+    // s is a reversed list contain all text
     s = t_NodeGenerator(s);
+    // s is a tNode chain list 
+
     s[0].locationUpdate(10, 15);
     s[0].draw();
     Board.redraw();
+    return s;
 }
 
 
@@ -32,8 +36,9 @@ function t_Node(splitedString) {
     this.childHeight = 0;
     this.childWidth = 0;
 }
+var _t_Node = t_Node.prototype;
 
-t_Node.prototype.locationUpdate = function (Xstart, Ystart) {
+_t_Node.locationUpdate = function (Xstart, Ystart) {
     this.groupX = Xstart;
     this.groupY = Ystart;
     this.x = this.groupX;
@@ -56,11 +61,15 @@ t_Node.prototype.locationUpdate = function (Xstart, Ystart) {
 function t_NodeGenerator(list) {
     let _tnodeChain = [];
     let s = list;
+    var  lastOperateNode = null;
     let _levelList = [];
 
     for (let i = 0; i < s.length; i++) {
-        var _item = s[i];
+        let _item = s[i];
         var _node = new t_Node(_item);
+        
+        _node.nextNode = lastOperateNode;
+
         _levelList[_node.level + 1] && (_node.child = _levelList[_node.level + 1]);
 
         // childrens height;
@@ -77,11 +86,10 @@ function t_NodeGenerator(list) {
         !_levelList[_node.level] && (_levelList[_node.level] = [])
         _levelList[_node.level].unshift(_node);
         _tnodeChain.unshift(_node);
+        lastOperateNode = _node;
     }
 
-    _levelList = _levelList.filter(function (x) {
-        return x
-    });
+    _levelList = _levelList.filter((x)=> x);
 
     // first node is null, just dont rend
     var _startNode = new t_Node(null);
@@ -89,7 +97,7 @@ function t_NodeGenerator(list) {
     _startNode.x = 10;
     _startNode.y = 50;
     _startNode.child = _levelList[0];
-
+    _startNode.nextNode = lastOperateNode;
     // unshift to list
     _tnodeChain.unshift(_startNode);
 
@@ -97,9 +105,12 @@ function t_NodeGenerator(list) {
 
 }
 
-t_Node.prototype.draw = function () {
+_t_Node.draw = function () {
     if (this.content != null) {
         this.battery = new eBattery(this.x, this.y, this.width + _margin * 2, this.height + _margin * 2, this.content);
+        //link this to battery
+        this.battery.tNode = this;
+        //regist battery 
         _ResourceManager.push(this.battery);
     }
     if (this.child == false) {
@@ -113,31 +124,20 @@ t_Node.prototype.draw = function () {
     }
 }
 
-var TextComparison = function (sourceText_splited, comparisonText_Splited) {
-    let _changedIndex_begin = 0;
-    let _changedIndex_end = 0;
+var TextRegenerate = function (rootNode) {
+    var textList = [];
+    let nodePoint = rootNode.nextNode;
+    //point to root's nextNode, root.next = null;
 
-    for (let i = 0; i < sourceText_splited.length; i++) {
-        const element = sourceText_splited[i];
-        if (element == comparisonText_Splited[i]) {
-            _changedIndex_begin = i;
-        } else {
-            break;
-        }
-    }
-    for (let j = sourceText_splited.length; j > _changedIndex_begin; j--) {
-        const element = sourceText_splited[j];
-        if (element == comparisonText_Splited[j]) {
-            _changedIndex_end = j;
-        } else {
-            return;
-        }
-    }
-    console.log([_changedIndex_begin, _changedIndex_end]);
+    while(nodePoint!=null){
+        console.log();
 
-    return [_changedIndex_begin, _changedIndex_end];
-    // 3 case:
-    // 1 left : content change;
-    // 0 left : deleted change;
-    // 2 left : added new line;
+        textList.push(
+            "-".repeat(nodePoint.level-1)
+            // nodePoint level +1 cause root tnode
+            +nodePoint.content);
+        nodePoint = nodePoint.nextNode;
+    }
+
+    return textList;
 }

@@ -235,10 +235,14 @@ var doEvent = {
     },
     textCancel: function (text, onElement) {
         onElement.Text = text.value;
+        onElement.tNode.content = text.value;
         onElement.width = parseFloat(text.style.width) * CanvQualityEnhanceVector;
         onElement.height = parseFloat(text.style.height) * CanvQualityEnhanceVector;
         body.removeChild(text);
         Board.redraw();
+        // update Textarea
+        let a = TextRegenerate(_ResourceManager.tNodeChain[0]).join('\n');
+        inputTextarea.value = a;
     },
     select: function (input) {
 

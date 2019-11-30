@@ -6,6 +6,7 @@ var InitialAll = function () {
     _History.record();
     _EventListener = new EventHandler(Canvas);
     Board.redraw();
+    
 }
 var Overall = {
     isOn: function (e) {
