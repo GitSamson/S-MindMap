@@ -7,19 +7,19 @@ function Text2Diagram(input) {
     s = t_NodeGenerator(s);
     // s is a tNode chain list 
 
-    s[0].locationUpdate(10, 15);
+    s[0].locationUpdate(0, 15);
     s[0].draw();
     Board.redraw();
     return s;
 }
 
 
-const _startLocation = point(50,50);
+const _startLocation = point(10,50);
 const _lineHeight = _singleLetterHeight;
 const _lineWidth = 20;
 const _gapping = 20;
-const _xgapping = 100;
-const _ygapping = 50;
+const _xgapping = 80;
+const _ygapping = 30;
 
 
 function t_Node(splitedString) {
@@ -94,8 +94,6 @@ function t_NodeGenerator(list) {
     // first node is null, just dont rend
     var _startNode = new t_Node(null);
     _startNode.level = 0;
-    _startNode.x = 10;
-    _startNode.y = 50;
     _startNode.child = _levelList[0];
     _startNode.nextNode = lastOperateNode;
     // unshift to list

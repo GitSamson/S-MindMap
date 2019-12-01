@@ -56,10 +56,10 @@ cv.redraw = function () {
         Draw(i);
     });
 
-    CanvDraw.c(0, 0, 2);
-    CanvStyle.Element();
-    CanvStyle.Text();
-    CanvDraw.t('basepoint',0,_singleLetterHeight,200);
+    // CanvDraw.c(0, 0, 2);
+    // CanvStyle.Element();
+    // CanvStyle.Text();
+    // CanvDraw.t('basepoint',0,_singleLetterHeight,200);
 
 }
 

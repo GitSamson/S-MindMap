@@ -38,7 +38,8 @@ function EventHandler(CANV) {
     function dragging(k, onElement) {
         (onElement instanceof eNode) && doEvent.create(onElement);
         if (onElement == null) {
-            _keyState.space ? doEvent.StartMove(k) : doEvent.multiplySelect(k);
+            _keyState.Shift ? doEvent.multiplySelect(k) :
+            doEvent.StartMove(k)
         }
         if (onElement instanceof eBattery) {
             if (onElement.selected == false) {

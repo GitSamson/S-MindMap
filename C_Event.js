@@ -30,7 +30,7 @@ var doEvent = {
         console.log('point:' + p.x + ' ' + p.y);
     },
     scroll: function (e) {
-        let _factor = e.deltaY < 0 ? 1.1 : 0.9;
+        let _factor = e.deltaY < 0 ? 1.05 : 0.95;
         Board.scaleFactor *=  _factor ;
         Board._startPoint.x /= _factor;
         Board._startPoint.y /= _factor;
