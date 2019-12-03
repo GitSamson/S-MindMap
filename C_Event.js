@@ -4,8 +4,8 @@
  */
 
 var doEvent = {
-    checkMode: function(e){
-        var p =point(e);
+    checkMode: function (e) {
+        var p = point(e);
         CanvDraw.c(p.x, p.y, 2);
         CanvStyle.Element();
         console.log('----------------');
@@ -31,7 +31,7 @@ var doEvent = {
     },
     scroll: function (e) {
         let _factor = e.deltaY < 0 ? 1.05 : 0.95;
-        Board.scaleFactor *=  _factor ;
+        Board.scaleFactor *= _factor;
         Board._startPoint.x /= _factor;
         Board._startPoint.y /= _factor;
 
@@ -42,8 +42,8 @@ var doEvent = {
 
         let fromE = point(k.mouse.pageX, k.mouse.pageY);
         Canvas.onmousemove = function (e) {
-            let p = point(e.pageX,e.pageY);
-            let _offset = point((p.x - fromE.x )/ Board.scaleFactor,( p.y - fromE.y )/ Board.scaleFactor);
+            let p = point(e.pageX, e.pageY);
+            let _offset = point((p.x - fromE.x) / Board.scaleFactor, (p.y - fromE.y) / Board.scaleFactor);
             Board._startPoint.x += _offset.x;
             Board._startPoint.y += _offset.y;
             canv.translate(_offset.x, _offset.y);
@@ -96,8 +96,6 @@ var doEvent = {
             input.to.linked.delete(input);
             _ResourceManager.del(input);
             _History.record();
-
-
             return;
         }
         if (input instanceof eNode) {
@@ -119,14 +117,16 @@ var doEvent = {
             return;
         }
 
+        if (input instanceof eBattery) {
+            _ResourceManager.elements.delete(input);
+            input.node.left.bundle.clear();
+            input.node.right.bundle.clear();
+        }
         if (input == 'element') {
             _ResourceManager.elementSelection.forEach(i => {
-                _ResourceManager.elements.delete(i);
-                i.node.left.bundle.clear();
-                i.node.right.bundle.clear();
+                this.remove(i);
             });
             _ResourceManager.elementSelection.clear();
-
             _History.record();
             return;
         }
@@ -141,7 +141,7 @@ var doEvent = {
             };
             Canvas.onmousemove = function (mousemove_e) {
                 var p = point(mousemove_e);
-                var offset = point( (p.x - last_e.x), (p.y - last_e.y) );
+                var offset = point((p.x - last_e.x), (p.y - last_e.y));
                 _ResourceManager.elementSelection.forEach(function (i) {
                     i.width = i.width + offset.x;
                     i.height = i.height + offset.y;
@@ -241,8 +241,7 @@ var doEvent = {
         body.removeChild(text);
         Board.redraw();
         // update Textarea
-        let a = TextRegenerate(_ResourceManager.tNodeChain[0]).join('\n');
-        inputTextarea.value = a;
+        inputTextarea.value = TextRegenerate(_ResourceManager.tNodeChain[0]).join('\n');
     },
     select: function (input) {
 

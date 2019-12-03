@@ -75,12 +75,15 @@ function midPoint(a, b) {
 
 
 var List = {
-    remove: function (e, list) {
-        var index = list.indexOf(e);
+    remove: function (e, fromList) {
+        var _list = fromList;
+        var index = _list.indexOf(e);
         if (index != -1) {
-            list.splice(index, 1);
+            _list.splice(index, 1);
+        }else{
+            throw ('can not remove from list',fromList);
         }
-        return list;
+        return _list;
     },
     merge: function (setA, setB) {
         setB.forEach(i => {
@@ -88,12 +91,14 @@ var List = {
         });
         return setA;
     },
-    remove: function (item, list) {
-        var a = new Set(list);
-        a.delete(a);
-        return [...a]
+    replace: function (list, key,...args){
+        var _list = list;
+        var index = _list.indexOf(key);
+        if (index != -1) {
+            _list.splice(index, 1, ...args);
+        }
+        return _list;
     }
-
 }
 
 function Vector(pointA, pointB) {
