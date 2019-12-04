@@ -92,6 +92,7 @@ var List = {
         return setA;
     },
     replace: function (list, key,...args){
+        if(list == false){return;} 
         var _list = list;
         var index = _list.indexOf(key);
         if (index != -1) {

@@ -118,6 +118,7 @@ var doEvent = {
         }
 
         if (input instanceof eBattery) {
+            input.hasOwnProperty('tNode')&&input.tNode.remove();
             _ResourceManager.elements.delete(input);
             input.node.left.bundle.clear();
             input.node.right.bundle.clear();
@@ -125,6 +126,7 @@ var doEvent = {
         if (input == 'element') {
             _ResourceManager.elementSelection.forEach(i => {
                 this.remove(i);
+                
             });
             _ResourceManager.elementSelection.clear();
             _History.record();

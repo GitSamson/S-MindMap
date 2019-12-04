@@ -77,12 +77,12 @@ function t_NodeGenerator(list) {
             _node.childHeight = _node.height + _ygapping;
             _node.childWidth = _node.width + _xgapping;
         } else { // add childs' node's children height
-            _node.child.forEach(i => {
+            _node.child.map(i => {
                 _node.childHeight += i.childHeight;
                 _node.childWidth < i.width && (_node.childWidth = i.width);
 
                 i.parent = _node; // update child's father property;
-            })
+            });
         }
         _levelList[_node.level + 1] && delete _levelList[_node.level + 1];
         !_levelList[_node.level] && (_levelList[_node.level] = [])
@@ -141,11 +141,23 @@ _t_Node.levelUpdate = function (level = null) {
     }
 
 }
+_t_Node.childRemove = function(element){
+   if( this.child == false){return false}
+    this.child = List.remove(this, this.child);
+    return this.child;
+}
 _t_Node.remove = function () {
     // this parent child remove this, push this child upgrade;
-    this.child != false && (this.parent.child = List.replace(this.parent.child, this, this.child));
-    this.child == false && (this.parent.child = List.remove(this,this.parent.child));
-    this.child!= false && Bothis.child.map(i => {
+    if(this.child != false){
+        this.parent.child = List.replace(this.parent.child, this, this.child);
+    }
+    else{
+        console.log(this);
+        
+        this.parent.childRemove(this);
+    }
+    
+    this.child!= false && this.child.map(i => {
         i.parent = this.parent; // update child's father
         i.levelUpdate(this.level); // update child level = current level; 
         this.parent.battery.node.right.push(i.battery.node.left); // relink battery links
