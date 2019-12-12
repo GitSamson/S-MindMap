@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "C:/Users/sunmarkz/Documents/Github/S-MindMap/index.html",
-            "webRoot": "C:/Users/sunmarkz/Documents/Github/S-MindMap"
+            "webRoot": "C:/Users/sunmarkz/Documents/Github/S-MindMap/"
         }
     ]
 }

@@ -107,7 +107,24 @@ function t_NodeGenerator(list) {
 
 _t_Node.bindBattery = function () {
     if (this.content != null) {
-        this.battery = new eBattery(this.x, this.y, this.width + _margin * 2, this.height + _margin * 2, this.content);
+        let _x, _y,_text,_prop;
+        let _index = this.content.indexOf('//');
+        if(_index == -1 ){
+             _x = this.x;
+             _y = this.y;
+             _text = this.content
+        }else{
+            let _prop = text.getContent(this.content,"(",")");
+            let _p = _prop.split(',');
+            _x = parseInt(_p[0]);
+            _y = parseInt(_p[1]);
+            _text = this.content.slice(0,_index);
+            _prop = this.content.slice(_index);
+        }
+
+
+        this.battery = new eBattery(_x,_y, this.width + _margin * 2, this.height + _margin * 2, _text);
+        this.battery.prop = _prop;
         //link this to battery
         this.battery.tNode = this;
         //regist battery 

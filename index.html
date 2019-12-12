@@ -84,7 +84,7 @@
     }
 
     d = Canvas.getContext('2d');
-    inputTextarea.value = 'level0\n-L1\n-L1\n--L2\n--L2_1\n\---L3\nL0\nL0';
+    inputTextarea.value = 'level0\n-L1//(50,50)\n-L1\n--L2\n--L2_1\n\---L3\nL0\nL0';
     function updateText(){
         InitialAll();
         _ResourceManager.tNodeChain = Text2Diagram(inputTextarea.value);

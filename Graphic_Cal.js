@@ -165,4 +165,21 @@ var transfer = {
     }
 }
 
+var text= {
+    getContent : function (content,key1,key2=null){
+        let _text = content;
+        if(key1.constructor == Number){
+            _text= _text.slice(key1);
+        }else{
+            _text = _text.slice(_text.indexOf(key1)+1);
+        }
+        if(key2 == null){return _text}
+        if(key2.constructor == Number){
+            return _text.slice(0,key2);
+        }
+        if(key2.constructor == String){
+            return _text.slice(0, _text.indexOf(key2));
+        }
+        }
+}
 
